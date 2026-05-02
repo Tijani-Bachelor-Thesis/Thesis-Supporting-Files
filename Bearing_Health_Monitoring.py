@@ -7,15 +7,13 @@ import cv2
 
 st.title("Bearing Health Monitoring - Improve Phase Demo")
 
-# ────────────────────────────────────────────────────────────────
-# Upload or simulate data
-# ────────────────────────────────────────────────────────────────
+# DATA UPLOAD
+
 uploaded_file = st.file_uploader("bearing_analysis_dataset.csv", type="csv")
 
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
-    # Assume CSV has 'snapshot' and 'vibration' (array or list of numbers per row)
-    # If vibration is stored as string, you may need: df['vibration'] = df['vibration'].apply(eval)
+    
 else:
     # Simulated data: 50 snapshots with vibration signals
     n = 50
@@ -28,14 +26,14 @@ else:
     df.loc[20:21, 'laplacian_variance'] = [16600, 16700]
     df.loc[35, 'laplacian_variance'] = 16650
 
-# ────────────────────────────────────────────────────────────────
-# Parameters
-# ────────────────────────────────────────────────────────────────
+
+# PARAMETERS
+
 threshold = st.slider("Variance Alert Threshold", 16000, 17500, 16500)
 consecutive = st.slider("Consecutive Highs Required", 1, 5, 2)
 
-# Assign conditions
-# ────────────────────────────────────────────────────────────────
+# ASSIGNING CONDITIONS
+
 df['condition'] = pd.cut(
     df['laplacian_variance'],
     bins=[-np.inf, 16500, 17200, np.inf],
@@ -57,7 +55,8 @@ for idx, row in df.iterrows():
     else:
         high_count = 0
 
-# Display results
+# DISPLAYING RESULTS
+
 st.subheader("Computed Metrics and Conditions")
 st.dataframe(df[['snapshot', 'rms', 'laplacian_variance', 'condition', 'alert']])
 
