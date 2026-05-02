@@ -40,7 +40,8 @@ df['condition'] = pd.cut(
     labels=['Healthy', 'Degraded', 'Failing']
 )
 
-# Real-time monitoring logic
+# REAL_TIME MONITORING LOGIC
+
 alerts = []
 high_count = 0
 df['alert'] = False
