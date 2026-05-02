@@ -1,0 +1,11 @@
+## How to run the simulation in Python
+
+1. Open Jupyter Notebook
+
+2. Install required library ( "pip install streamlit" )
+
+3. Run the code:
+   streamlit run Bearing_Health_Monitoring.py
+
+4. The simulation opens in a browser.
+
